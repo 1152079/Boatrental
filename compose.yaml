@@ -1,0 +1,19 @@
+services:
+  postgres:
+    container_name: Boatrental_BD
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=Boatrental
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    ports:
+      - 58441:5432
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_PASS=quest
+      - RABBITMQ_DEFAULT_USER=quest
+    ports:
+      - 5672:5672
+      - 15672:15672

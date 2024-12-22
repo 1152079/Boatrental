@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.boatrental";
+option java_outer_classname = "LibraryProto";
+option optimize_for = SPEED;
+
+package library;
+
+service UserService {
+    rpc findUser (UserNameRequest) returns (UserResponse);
+    rpc getAllUsers (EmptyRequest) returns (UserListResponse);
+}
+
+message UserResponse {
+    string name = 1;
+    string email = 2;
+    string phone = 3;
+    string role = 4;
+}
+
+message UserNameRequest {
+    string name = 1;
+}
+
+message UserListResponse {
+    repeated UserResponse users = 1;
+}
+
+service BoatService {
+    rpc findBoat (BoatNameRequest) returns (BoatResponse);
+    rpc getAllBoats (EmptyRequest) returns (BoatListResponse);
+}
+
+message BoatResponse {
+    string name = 1;
+    string description = 2;
+    string type = 3;
+    int32 capacity = 4;
+    string status = 5;
+    double price_per_hour = 6;
+}
+
+message BoatNameRequest {
+    string name = 1;
+}
+
+message BoatListResponse {
+    repeated BoatResponse boats = 1;
+}
+
+service BookingService {
+    rpc getBooking (BookingRequest) returns (BookingResponse);
+    rpc getAllBookings (EmptyRequest) returns (BookingListResponse);
+    rpc addBooking (BookingCheckRequest) returns (BookingCheckResponse);
+}
+
+message BookingResponse {
+    string id = 1;
+    string user_id = 2;
+    string boat_id = 3;
+    string start_time = 4;
+    string end_time = 5;
+    string status = 6;
+    double total_price = 7;
+    string created_at = 8;
+    string updated_at = 9;
+}
+
+message BookingRequest {
+    string id = 1;
+    string user_id = 2;
+    string boat_id = 3;
+    string start_time = 4;
+    string end_time = 5;
+    string status = 6;
+    double total_price = 7;
+    string created_at = 8;
+    string updated_at = 9;
+}
+
+message BookingListResponse {
+    repeated BookingResponse bookings = 1;
+}
+
+message BookingCheckRequest {
+    string user = 1;
+    string boat = 2;
+}
+
+message BookingCheckResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message EmptyRequest {}

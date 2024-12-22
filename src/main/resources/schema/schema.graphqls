@@ -1,0 +1,113 @@
+type Query {
+    allUsers: [UserDto]
+    findUser(email: String!): UserDto
+
+    allBoats: [BoatDto]
+    findBoat(name: String!): BoatDto
+
+    allBookings: [BookingDto]
+    findBooking(id: String!): BookingDto
+
+}
+
+type Mutation {
+    registerUser(input: SubmittedUser!): UserDto
+    updateUser(email: String!, input: SubmittedUser!): UserDto
+    deleteUser(email: String!): String
+
+    registerBoat(input: SubmittedBoat!): BoatDto
+    updateBoat(name: String!, input: SubmittedBoat!): BoatDto
+    deleteBoat(name: String!): String
+
+    registerBooking(input: SubmittedBooking!): BookingDto
+    updateBooking(id: String!, input: SubmittedBooking!): BookingDto
+    deleteBooking(id: String!): String
+
+}
+
+type UserDto {
+    name: String!
+    email: String!
+    phone: String
+    password: String!
+    role: Role
+    registrationDate: String
+}
+input SubmittedUser {
+    name: String!
+    email: String!
+    phone: String
+    password: String!
+    role: Role!
+    registrationDate: String
+}
+
+enum Role {
+    ADMIN
+    CLIENT
+    WORKER
+}
+
+type BoatDto {
+    name: String!
+    description: String
+    type: BoatType!
+    capacity: Int
+    status: BoatStatus!
+    pricePerHour: Float!
+    createdAt: String
+    repairAt: String
+}
+
+input SubmittedBoat {
+    name: String!
+    description: String
+    type: BoatType!
+    capacity: Int
+    status: BoatStatus!
+    pricePerHour: Float!
+    createdAt: String
+    repairAt: String
+}
+
+enum BoatStatus {
+    AVAILABLE
+    BOOKED
+    UNDER_REPAIR
+}
+
+enum BoatType {
+    MOTORBOAT
+    SAILBOAT
+    YACHT
+    KAYAK
+    CANOE
+}
+
+type BookingDto {
+    id: String
+    userId: String!
+    boatId: String!
+    startTime: String
+    endTime: String
+    status: BookingStatus!
+    totalPrice: Float!
+    createdAt: String
+    updatedAt: String
+}
+
+input SubmittedBooking {
+    userId: String!
+    boatId: String!
+    startTime: String
+    endTime: String
+    status: BookingStatus!
+    totalPrice: Float!
+}
+
+enum BookingStatus {
+    CONFIRMED
+    PENDING_CONFIRMATION
+    COMPLETED
+    CANCELLED
+}
